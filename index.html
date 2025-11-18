@@ -1,107 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Telefon Alqı-Satqısı</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - Aliyev Phone Store</title>
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      font-family: Arial, sans-serif;
-      color: white;
+    :root{
+      --bg:#000; --text:#fff; --accent:#0ea5ff; --muted:#bbb;
     }
-    .header {
-      width: 100%;
-      background: #0044cc;
-      padding: 20px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);padding:20px;}
+    .wrap{max-width:900px;margin:0 auto}
+    h1{margin:0 0 12px;text-align:center}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .card{background:#0b0b0b;padding:14px;border-radius:8px;border:1px solid #151515;box-shadow:0 2px 6px rgba(0,0,0,.6)}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="url"], textarea, select{
+      width:100%;padding:8px;border-radius:6px;border:1px solid #222;background:#070707;color:var(--text);
     }
-    .top-images {
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-    .top-images img {
-      width: 25%;
-      height: auto;
-    }
-    .products {
-      padding: 20px;
-    }
-    .product {
-      display: flex;
-      margin-bottom: 25px;
-      background: #111;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .product-img {
-      width: 120px;
-      height: 120px;
-      background: #0e3c66;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      border-radius: 5px;
-      margin-right: 15px;
-    }
-    .product-info {
-      line-height: 1.6;
-    }
-    .product-title {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
+    .col{flex:1;min-width:220px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    button{background:var(--accent);color:#000;border:none;padding:10px 12px;border-radius:8px;cursor:pointer}
+    button.ghost{background:transparent;color:var(--muted);border:1px solid #222}
+    .list{margin-top:18px}
+    .item{display:flex;gap:12px;align-items:center;padding:10px;border-bottom:1px solid #111}
+    .thumb{width:80px;height:80px;background:#122;display:flex;align-items:center;justify-content:center;border-radius:8px;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .meta{flex:1}
+    .meta h3{margin:0 0 6px}
+    .meta p{margin:0;color:var(--muted);font-size:14px}
+    .actions{display:flex;gap:8px}
+    .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .small{font-size:13px;color:var(--muted)}
+    .pass-wrap{display:flex;gap:8px;align-items:center}
+    .danger{background:#ff6b6b;color:#fff}
+    @media(max-width:640px){ .row{flex-direction:column} .thumb{width:64px;height:64px} }
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="topbar">
+      <h1>Admin — Aliyev Phone Store</h1>
+      <div class="pass-wrap card">
+        <span class="small">Admin parol:</span>
+        <input id="adminPass" type="text" placeholder="parol daxil et" style="width:160px"/>
+        <button id="loginBtn" class="ghost">Daxil ol</button>
+      </div>
+    </div>
 
-  <div class="top-images">
-    <img src="phone1.jpg" />
-    <img src="phone2.jpg" />
-    <img src="phone3.jpg" />
-    <img src="phone4.jpg" />
+    <div id="adminArea" style="display:none">
+      <div class="card">
+        <h2 class="small">Sayt adı dəyiş</h2>
+        <div class="row">
+          <div class="col">
+            <label>Saytın başlığı (title)</label>
+            <input id="siteTitle" type="text" placeholder="Aliyev Phone Store" />
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button id="saveTitleBtn">Yadda saxla</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="card">
+        <h2 class="small">Məhsul əlavə et / düzəlt</h2>
+        <div class="row">
+          <div class="col">
+            <label>Başlıq</label>
+            <input id="prodTitle" type="text" placeholder="Məs. iPhone Xs Max" />
+          </div>
+          <div class="col">
+            <label>Qiymət</label>
+            <input id="prodPrice" type="text" placeholder="180 AZN" />
+          </div>
+          <div class="col">
+            <label>Şəkil URL</label>
+            <input id="prodImage" type="url" placeholder="https://..." />
+          </div>
+          <div class="col">
+            <label>Status</label>
+            <select id="prodStatus"><option>Satılır</option><option>Satılmayıb</option></select>
+          </div>
+          <div style="flex-basis:100%"></div>
+          <div style="flex:1 1 100%">
+            <label>Təsvir</label>
+            <textarea id="prodDesc" rows="3" placeholder="Məhsul haqqında qısa məlumat"></textarea>
+          </div>
+        </div>
+        <div class="controls">
+          <button id="addBtn">Əlavə et</button>
+          <button id="clearBtn" class="ghost">Formu təmizlə</button>
+          <button id="exportBtn" class="ghost">Məhsulları JSON kimi yüklə</button>
+        </div>
+      </div>
+
+      <div id="listWrap" class="card list">
+        <h2 class="small">Məhsullar</h2>
+        <div id="items"></div>
+      </div>
+    </div>
+
+    <div id="lockedMsg" class="card" style="margin-top:12px">
+      <p class="small">Admin panelə giriş üçün parol tələb olunur. (Standart parol: <code>1234</code>)</p>
+    </div>
   </div>
 
-  <div class="header">TELEFON ALQI-SATQISI</div>
+<script>
+(function(){
+  // --- Simple password (you can change) ---
+  const REAL_PASS = '1234'; // admin parolunu dəyişmək istəyirsənsə buranı dəyiş
+  // DOM
+  const loginBtn = document.getElementById('loginBtn');
+  const adminPass = document.getElementById('adminPass');
+  const adminArea = document.getElementById('adminArea');
+  const lockedMsg = document.getElementById('lockedMsg');
 
-  <div class="products">
+  const siteTitle = document.getElementById('siteTitle');
+  const saveTitleBtn = document.getElementById('saveTitleBtn');
 
-    <div class="product">
-      <div class="product-img">Şəkil</div>
-      <div class="product-info">
-        <div class="product-title">1-ci məhsul</div>
-        Haqqında məlumat<br>
-        Qiymət<br>
-        Satılır / Satılmayıb
-      </div>
-    </div>
+  const prodTitle = document.getElementById('prodTitle');
+  const prodPrice = document.getElementById('prodPrice');
+  const prodImage = document.getElementById('prodImage');
+  const prodStatus = document.getElementById('prodStatus');
+  const prodDesc = document.getElementById('prodDesc');
+  const addBtn = document.getElementById('addBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const itemsWrap = document.getElementById('items');
 
-    <div class="product">
-      <div class="product-img">Şəkil</div>
-      <div class="product-info">
-        <div class="product-title">2-ci məhsul</div>
-        Haqqında məlumat<br>
-        Qiymət<br>
-        Satılır / Satılmayıb
-      </div>
-    </div>
+  let editIndex = -1;
 
-    <div class="product">
-      <div class="product-img">Şəkil</div>
-      <div class="product-info">
-        <div class="product-title">3-cü məhsul</div>
-        Haqqında məlumat<br>
-        Qiymət<br>
-        Satılır / Satılmayıb
-      </div>
-    </div>
+  // -- load site title --
+  function loadTitle(){ const t = localStorage.getItem('siteTitle') || 'Aliyev Phone Store'; document.title = t; siteTitle.value = t; }
+  loadTitle();
 
-  </div>
+  // -- login --
+  loginBtn.addEventListener('click', ()=>{
+    if(adminPass.value === REAL_PASS){ adminArea.style.display='block'; lockedMsg.style.display='none'; adminPass.value=''; renderList(); } else { alert('Yanlış parol!') }
+  });
 
+  // -- save site title --
+  saveTitleBtn.addEventListener('click', ()=>{
+    const t = siteTitle.value.trim() || 'Aliyev Phone Store'; localStorage.setItem('siteTitle', t); document.title = t; alert('Sayt adı yadda saxlandı'); 
+  });
+
+  // -- load products --
+  function loadProducts(){ const raw = localStorage.getItem('products'); return raw ? JSON.parse(raw) : []; }
+  function saveProducts(arr){ localStorage.setItem('products', JSON.stringify(arr)); }
+
+  // -- render list --
+  function renderList(){
+    const arr = loadProducts();
+    itemsWrap.innerHTML = '';
+    if(arr.length===0){ itemsWrap.innerHTML = '<p class="small">Heç bir məhsul yoxdur.</p>'; return; }
+    arr.forEach((p,i)=>{
+      const it = document.createElement('div'); it.className='item';
+      it.innerHTML = `
+        <div class="thumb"><img src="${escapeHtml(p.image||'')}" onerror="this.src='https://via.placeholder.com/120x120?text=No+Image'"/></div>
+        <div class="meta">
+          <h3>${escapeHtml(p.title)} — <span style="color:var(--muted);font-weight:400">${escapeHtml(p.price)}</span></h3>
+          <p>${escapeHtml(p.desc||'')}</p>
+          <p class="small">Status: ${escapeHtml(p.status)}</p>
+        </div>
+        <div class="actions">
+          <button data-i="${i}" class="editBtn">Düzəlt</button>
+          <button data-i="${i}" class="delBtn danger">Sil</button>
+        </div>`;
+      itemsWrap.appendChild(it);
+    });
+
+    // add listeners
+    document.querySelectorAll('.delBtn').forEach(b=>{
+      b.addEventListener('click', e=>{
+        const i = Number(e.currentTarget.dataset.i);
+        if(confirm('Bu məhsulu silmək istədiyinə əminsən?')) {
+          const arr = loadProducts(); arr.splice(i,1); saveProducts(arr); renderList();
+        }
+      });
+    });
+    document.querySelectorAll('.editBtn').forEach(b=>{
+      b.addEventListener('click', e=>{
+        const i = Number(e.currentTarget.dataset.i);
+        const arr = loadProducts(); const p = arr[i];
+        prodTitle.value = p.title; prodPrice.value = p.price; prodImage.value = p.image; prodStatus.value = p.status; prodDesc.value = p.desc;
+        editIndex = i; addBtn.textContent = 'Yadda saxla (düzəliş)';
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+    });
+  }
+
+  // escape helper
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // -- add or save --
+  addBtn.addEventListener('click', ()=>{
+    const title = prodTitle.value.trim(); if(!title){ alert('Başlıq yaz'); return; }
+    const obj = { title, price: prodPrice.value.trim(), image: prodImage.value.trim(), status: prodStatus.value, desc: prodDesc.value.trim() };
+    const arr = loadProducts();
+    if(editIndex>=0){ arr[editIndex]=obj; editIndex=-1; addBtn.textContent='Əlavə et'; } else { arr.unshift(obj); } // newest first
+    saveProducts(arr); renderList(); clearForm(); alert('Yadda saxlandı');
+  });
+
+  clearBtn.addEventListener('click', clearForm);
+  function clearForm(){ prodTitle.value=''; prodPrice.value=''; prodImage.value=''; prodStatus.value='Satılır'; prodDesc.value=''; editIndex=-1; addBtn.textContent='Əlavə et'; }
+
+  exportBtn.addEventListener('click', ()=>{
+    const arr = loadProducts(); const blob = new Blob([JSON.stringify(arr, null, 2)], {type:'application/json'}); const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'products.json'; a.click(); URL.revokeObjectURL(url);
+  });
+
+  // initial render if already logged in (optional)
+  // if you want panel visible by default, set adminArea.style.display='block'
+})();
+</script>
 </body>
 </html>
