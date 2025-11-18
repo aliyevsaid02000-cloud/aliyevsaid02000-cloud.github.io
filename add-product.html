@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Məhsul əlavə et</title>
-    <link rel="stylesheet" href="Style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Məhsul Əlavə Et</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>Yeni məhsul əlavə et</h1>
+  <div class="navbar">
+    <h1>Məhsul Əlavə Et</h1>
+  </div>
 
+  <div class="container">
     <form id="addForm">
-        <input type="text" id="name" placeholder="Məhsul adı" required>
-        <input type="number" id="price" placeholder="Qiymət" required>
-        <input type="text" id="image" placeholder="Şəkil linki (optional)">
-        <button type="submit" class="btn">Əlavə et</button>
+
+      <label>Ad:</label>
+      <input type="text" id="name" required>
+
+      <label>Qiymət:</label>
+      <input type="number" id="price" required>
+
+      <label>Şəkil URL:</label>
+      <input type="text" id="image" required>
+
+      <button type="submit" class="btn">Əlavə Et</button>
     </form>
 
-    <a class="back" href="index.html">← Geri qayıt</a>
-</div>
+  </div>
 
-<script src="Script.js"></script>
+  <script src="script.js"></script>
+
 </body>
 </html>
