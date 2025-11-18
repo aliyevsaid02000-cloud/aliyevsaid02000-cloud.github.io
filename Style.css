@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: white;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 8px;
+    background: #222;
+    color: white;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #0af;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-size: 18px;
+    margin-top: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #09c;
+}
+
+.product-card {
+    background: #222;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.product-card h3 {
+    margin: 0 0 8px 0;
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.delete-btn {
+    background: #ff4444;
+    margin-top: 10px;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+}
+
+.edit-btn {
+    background: #ffaa00;
+    margin-top: 10px;
+}
+
+.edit-btn:hover {
+    background: #cc8800;
+}
+
+a {
+    color: #0af;
+    text-decoration: none;
+}
+
+.nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nav a {
+    margin: 0 10px;
+    font-size: 18px;
+    color: #0af;
+}
