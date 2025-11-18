@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Məhsul əlavə et | Aliyev Phone Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        .container {
+            max-width: 450px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Yeni Məhsul Əlavə Et</h2>
+
+    <label>Məhsulun adı:</label>
+    <input type="text" id="name">
+
+    <label>Qiymət:</label>
+    <input type="number" id="price">
+
+    <label>Şəkil linki:</label>
+    <input type="text" id="image">
+
+    <label>Haqqında (qısa):</label>
+    <textarea id="desc"></textarea>
+
+    <button onclick="saveProduct()">Yadda Saxla</button>
+
+    <p id="status"></p>
+</div>
+
+<script>
+function saveProduct() {
+    const name = document.getElementById("name").value;
+    const price = document.getElementById("price").value;
+    const image = document.getElementById("image").value;
+    const desc = document.getElementById("desc").value;
+
+    if (!name || !price || !image) {
+        document.getElementById("status").innerHTML = "❌ Bütün məlumatları doldur!";
+        return;
+    }
+
+    const product = { name, price, image, desc };
+
+    let products = JSON.parse(localStorage.getItem("products") || "[]");
+    products.push(product);
+    localStorage.setItem("products", JSON.stringify(products));
+
+    document.getElementById("status").innerHTML = "✅ Məhsul əlavə olundu!";
+}
+</script>
+
+</body>
+</html>
