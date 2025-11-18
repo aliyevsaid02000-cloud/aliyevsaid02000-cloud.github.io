@@ -3,34 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Məhsulu redaktə et | Aliyev Phone Store</title>
+    <title>Məhsulu redaktə et</title>
     <link rel="stylesheet" href="Style.css">
-    <script src="Script.js" defer></script>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Məhsulu redaktə et</h1>
+<div class="container">
+    <h1>Məhsulu redaktə et</h1>
 
-        <label>Məhsul adı:</label>
-        <input type="text" id="editName">
+    <form id="editForm">
+        <input type="text" id="edit-name" placeholder="Məhsul adı" required>
+        <input type="number" id="edit-price" placeholder="Qiymət" required>
+        <input type="text" id="edit-image" placeholder="Şəkil linki (optional)">
+        <button type="submit" class="btn">Yenilə</button>
+    </form>
 
-        <label>Qiymət (₼):</label>
-        <input type="number" id="editPrice">
+    <a class="back" href="index.html">← Geri qayıt</a>
+</div>
 
-        <label>Şəkil linki:</label>
-        <input type="text" id="editImage">
-
-        <label>Məlumat:</label>
-        <textarea id="editDesc"></textarea>
-
-        <button onclick="saveEdit()">Yadda saxla</button>
-        <a href="index.html" class="back-btn">Geri qayıt</a>
-    </div>
-
-    <script>
-        loadEditPage();
-    </script>
-
+<script src="Script.js"></script>
 </body>
 </html>
