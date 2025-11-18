@@ -1,98 +1,26 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Məhsul əlavə et | Aliyev Phone Store</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: white;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 450px;
-      background: #111;
-      padding: 20px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #1e90ff;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Məhsul əlavə et</title>
+    <link rel="stylesheet" href="Style.css">
 </head>
 <body>
 
-  <div class="container">
-    <h2 id="title">Məhsul əlavə et</h2>
+<div class="container">
+    <h1>Yeni məhsul əlavə et</h1>
 
-    <input id="name" type="text" placeholder="Məhsul adı">
-    <input id="price" type="number" placeholder="Qiymət (AZN)">
-    <input id="image" type="text" placeholder="Şəkil linki (URL)">
+    <form id="addForm">
+        <input type="text" id="name" placeholder="Məhsul adı" required>
+        <input type="number" id="price" placeholder="Qiymət" required>
+        <input type="text" id="image" placeholder="Şəkil linki (optional)">
+        <button type="submit" class="btn">Əlavə et</button>
+    </form>
 
-    <button onclick="saveProduct()" id="btn">Əlavə et</button>
-  </div>
+    <a class="back" href="index.html">← Geri qayıt</a>
+</div>
 
-  <script>
-    let editIndex = localStorage.getItem("editIndex");
-
-    if (editIndex !== null) {
-      let products = JSON.parse(localStorage.getItem("products")) || [];
-      let p = products[editIndex];
-
-      document.getElementById("name").value = p.name;
-      document.getElementById("price").value = p.price;
-      document.getElementById("image").value = p.image;
-
-      document.getElementById("title").innerText = "Məhsulu redaktə et";
-      document.getElementById("btn").innerText = "Yadda saxla";
-    }
-
-    function saveProduct() {
-      let name = document.getElementById("name").value;
-      let price = document.getElementById("price").value;
-      let image = document.getElementById("image").value;
-
-      if (!name || !price || !image) {
-        alert("Zəhmət olmasa bütün xanaları doldurun!");
-        return;
-      }
-
-      let products = JSON.parse(localStorage.getItem("products")) || [];
-
-      if (editIndex !== null) {
-        products[editIndex] = { name, price, image };
-        localStorage.removeItem("editIndex");
-      } else {
-        products.push({ name, price, image });
-      }
-
-      localStorage.setItem("products", JSON.stringify(products));
-
-      window.location.href = "index.html";
-    }
-  </script>
-
+<script src="Script.js"></script>
 </body>
 </html>
