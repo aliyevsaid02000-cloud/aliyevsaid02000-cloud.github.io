@@ -1,58 +1,25 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aliyev Phone Store</title>
-  <link rel="stylesheet" href="Style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aliyev Telefon Alqı-Satqısı</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <h1 class="site-title">Aliyev Phone Store</h1>
-      <p class="site-sub">Telefon alqı-satqısı — ən yaxşı qiymətlərlə</p>
-    </div>
-  </header>
 
-  <main class="container">
-    <!-- Banner -->
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-left">
-          <img src="https://via.placeholder.com/420x160?text=Phones+1" alt="phone" />
-        </div>
-        <div class="hero-center">
-          <h2>TELEFON ALQI<br />SATQİSI</h2>
-        </div>
-        <div class="hero-right">
-          <img src="https://via.placeholder.com/160x160?text=Phones+2" alt="phone" />
-        </div>
-      </div>
-    </section>
+  <div class="navbar">
+    <h1>Aliyev Telefon Alqı-Satqısı</h1>
+  </div>
 
-    <!-- Məhsullar başlığı və əlavə et düyməsi -->
-    <section class="products-header card">
-      <h2>Məhsul siyahısı</h2>
-      <a class="btn-add" href="add-product.html">+ Yeni məhsul əlavə et</a>
-    </section>
+  <div class="container home">
+    <img src="phone.png" class="home-img" />
+    <h2>Xoş gəlmisiniz!</h2>
+    <p>Telefon alqı-satqısı sistemi</p>
 
-    <!-- Məhsul siyahısı -->
-    <section id="productsList" class="products-list">
-      <!-- Məhsullar JS ilə yüklənəcək -->
-      <p class="empty-note">Hələ məhsul yoxdur. "Yeni məhsul əlavə et" düyməsinə basın.</p>
-    </section>
-  </main>
+    <a href="product-list.html" class="btn">Məhsul Siyahısı</a>
+    <a href="add-product.html" class="btn">Məhsul Əlavə Et</a>
+  </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Aliyev Phone Store — Bütün hüquqlar qorunur</p>
-    </div>
-  </footer>
-
-  <script src="Script.js"></script>
-  <script>
-    // sadə footer ili üçün
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
