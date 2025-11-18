@@ -1,131 +1,86 @@
-// --------------------------------------
-//  Məhsulları LocalStorage-də saxlayan sistem
-// --------------------------------------
-
+// Məhsulları LocalStorage-dən götür
 function getProducts() {
     return JSON.parse(localStorage.getItem("products") || "[]");
 }
 
-function saveProducts(products) {
-    localStorage.setItem("products", JSON.stringify(products));
+// LocalStorage-yə yaz
+function saveProducts(list) {
+    localStorage.setItem("products", JSON.stringify(list));
 }
 
-// --------------------------------------
-//  Məhsul əlavə etmə funksiyası (add-product.html üçün)
-// --------------------------------------
-
-function addProduct() {
-    const name = document.getElementById("productName").value.trim();
-    const price = document.getElementById("productPrice").value.trim();
-    const image = document.getElementById("productImage").value.trim();
-    const desc = document.getElementById("productDesc").value.trim();
-
-    if (!name || !price || !image) {
-        alert("Zəhmət olmasa bütün xanaları doldurun!");
-        return;
-    }
-
-    const products = getProducts();
-
-    products.push({
-        id: Date.now(),
-        name,
-        price,
-        image,
-        desc
-    });
-
-    saveProducts(products);
-
-    alert("Məhsul əlavə olundu!");
-    window.location.href = "index.html";
-}
-
-// --------------------------------------
-//  Məhsulları siyahıda göstərmək (index.html üçün)
-// --------------------------------------
-
-function loadProducts() {
-    const list = document.getElementById("productList");
-    if (!list) return;
-
-    const products = getProducts();
-    list.innerHTML = "";
-
-    products.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "product-card";
-
-        card.innerHTML = `
-            <h3>${p.name}</h3>
-            <p>Qiymət: ${p.price} ₼</p>
-            <img src="${p.image}" alt="Şəkil">
-            <p>${p.desc || ""}</p>
-
-            <button class="edit-btn" onclick="editProduct(${p.id})">Redaktə et</button>
-            <button class="delete-btn" onclick="deleteProduct(${p.id})">Sil</button>
-        `;
-
-        list.appendChild(card);
-    });
-}
-
-// --------------------------------------
-//  Məhsul silmək
-// --------------------------------------
-
-function deleteProduct(id) {
+// Məhsulları göstər (index.html-də)
+if (document.getElementById("product-list")) {
     let products = getProducts();
-    products = products.filter(p => p.id !== id);
+    let list = document.getElementById("product-list");
+
+    if (products.length === 0) {
+        list.innerHTML = "<p style='color:white;'>Hələ məhsul yoxdur</p>";
+    } else {
+        products.forEach((p, i) => {
+            list.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.image || 'https://via.placeholder.com/150'}">
+                    <h2>${p.name}</h2>
+                    <p>${p.price} AZN</p>
+
+                    <div class="actions">
+                        <a href="edit-product.html?id=${i}" class="edit-btn">Redaktə</a>
+                        <button class="delete-btn" onclick="deleteProduct(${i})">Sil</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+}
+
+// Yeni məhsul əlavə et
+if (document.getElementById("addForm")) {
+    document.getElementById("addForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let products = getProducts();
+
+        products.push({
+            name: document.getElementById("name").value,
+            price: document.getElementById("price").value,
+            image: document.getElementById("image").value
+        });
+
+        saveProducts(products);
+        window.location.href = "index.html";
+    });
+}
+
+// Məhsul sil
+function deleteProduct(i) {
+    let products = getProducts();
+    products.splice(i, 1);
     saveProducts(products);
-
-    alert("Məhsul silindi!");
-    loadProducts();
+    location.reload();
 }
 
-// --------------------------------------
-//  Redaktə üçün məlumat saxla
-// --------------------------------------
+// Redaktə səhifəsinə məlumatı yüklə
+if (document.getElementById("editForm")) {
+    let url = new URLSearchParams(window.location.search);
+    let id = url.get("id");
 
-function editProduct(id) {
-    localStorage.setItem("editID", id);
-    window.location.href = "edit-product.html";
-}
+    let products = getProducts();
+    let product = products[id];
 
-// --------------------------------------
-//  Redaktə səhifəsini doldurmaq
-// --------------------------------------
+    document.getElementById("edit-name").value = product.name;
+    document.getElementById("edit-price").value = product.price;
+    document.getElementById("edit-image").value = product.image;
 
-function loadEditPage() {
-    const id = Number(localStorage.getItem("editID"));
-    const products = getProducts();
-    const product = products.find(p => p.id === id);
+    document.getElementById("editForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    if (!product) return;
+        product.name = document.getElementById("edit-name").value;
+        product.price = document.getElementById("edit-price").value;
+        product.image = document.getElementById("edit-image").value;
 
-    document.getElementById("editName").value = product.name;
-    document.getElementById("editPrice").value = product.price;
-    document.getElementById("editImage").value = product.image;
-    document.getElementById("editDesc").value = product.desc;
-}
+        products[id] = product;
+        saveProducts(products);
 
-// --------------------------------------
-//  Redaktəni yadda saxlamaq
-// --------------------------------------
-
-function saveEdit() {
-    const id = Number(localStorage.getItem("editID"));
-    const products = getProducts();
-
-    const index = products.findIndex(p => p.id === id);
-
-    products[index].name = document.getElementById("editName").value;
-    products[index].price = document.getElementById("editPrice").value;
-    products[index].image = document.getElementById("editImage").value;
-    products[index].desc = document.getElementById("editDesc").value;
-
-    saveProducts(products);
-
-    alert("Məhsul redaktə olundu!");
-    window.location.href = "index.html";
+        window.location.href = "index.html";
+    });
 }
