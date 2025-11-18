@@ -1,97 +1,21 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Məhsul siyahısı | Aliyev Phone Store</title>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #000;
-        color: white;
-        padding: 20px;
-    }
-    .container {
-        max-width: 600px;
-        background: #111;
-        padding: 20px;
-        margin: auto;
-        border-radius: 10px;
-    }
-    .product {
-        background: #222;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-    }
-    button {
-        padding: 10px 15px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-right: 5px;
-    }
-    .edit { background: #007bff; color: white; }
-    .delete { background: #d9534f; color: white; }
-    a.add-btn {
-        display: block;
-        text-align: center;
-        background: green;
-        padding: 12px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        color: white;
-        text-decoration: none;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliyev Phone Store – Məhsullar</title>
+    <link rel="stylesheet" href="Style.css">
 </head>
-
 <body>
+
 <div class="container">
+    <h1>Məhsul siyahısı</h1>
 
-    <h2>Məhsul siyahısı</h2>
+    <a href="add-product.html" class="btn">+ Yeni məhsul əlavə et</a>
 
-    <a href="add-product.html" class="add-btn">+ Yeni məhsul əlavə et</a>
-
-    <div id="productList"></div>
+    <div id="product-list" class="product-list"></div>
 </div>
 
-<script>
-    function loadProducts() {
-        const products = JSON.parse(localStorage.getItem("products")) || [];
-        const list = document.getElementById("productList");
-
-        list.innerHTML = "";
-
-        products.forEach((p, index) => {
-            list.innerHTML += `
-                <div class="product">
-                    <h3>${p.name}</h3>
-                    <p><b>Qiymət:</b> ${p.price} AZN</p>
-                    <p><b>Şəkil:</b> <img src="${p.image}" width="100"></p>
-
-                    <button class="edit" onclick="editProduct(${index})">Redaktə et</button>
-                    <button class="delete" onclick="deleteProduct(${index})">Sil</button>
-                </div>
-            `;
-        });
-    }
-
-    function deleteProduct(index) {
-        const products = JSON.parse(localStorage.getItem("products")) || [];
-        products.splice(index, 1);
-        localStorage.setItem("products", JSON.stringify(products));
-        loadProducts();
-    }
-
-    function editProduct(index) {
-        localStorage.setItem("editIndex", index);
-        window.location.href = "edit-product.html";
-    }
-
-    loadProducts();
-</script>
-
+<script src="Script.js"></script>
 </body>
 </html>
