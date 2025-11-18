@@ -1,76 +1,58 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aliyev Telefon Alqı-Satqı</title>
-
-    <link rel="stylesheet" href="Style.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background: #222;
-            padding: 15px;
-            text-align: center;
-        }
-
-        header h1 {
-            color: white;
-            margin: 0;
-            font-size: 26px;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: auto;
-            margin-top: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px #ccc;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .btn:hover {
-            background: #0056b3;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aliyev Phone Store</title>
+  <link rel="stylesheet" href="Style.css" />
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="site-title">Aliyev Phone Store</h1>
+      <p class="site-sub">Telefon alqı-satqısı — ən yaxşı qiymətlərlə</p>
+    </div>
+  </header>
 
-<header>
-    <h1>Aliyev Telefon Alqı-Satqı</h1>
-</header>
+  <main class="container">
+    <!-- Banner -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <img src="https://via.placeholder.com/420x160?text=Phones+1" alt="phone" />
+        </div>
+        <div class="hero-center">
+          <h2>TELEFON ALQI<br />SATQİSI</h2>
+        </div>
+        <div class="hero-right">
+          <img src="https://via.placeholder.com/160x160?text=Phones+2" alt="phone" />
+        </div>
+      </div>
+    </section>
 
-<div class="container">
+    <!-- Məhsullar başlığı və əlavə et düyməsi -->
+    <section class="products-header card">
+      <h2>Məhsul siyahısı</h2>
+      <a class="btn-add" href="add-product.html">+ Yeni məhsul əlavə et</a>
+    </section>
 
-    <h2>Telefon Mağazasına Xoş Gəldiniz</h2>
-    <p>Bura əlavə edilmiş bütün telefonları görə, yenisini əlavə edə və ya mövcud telefonu düzəldə bilərsiniz.</p>
+    <!-- Məhsul siyahısı -->
+    <section id="productsList" class="products-list">
+      <!-- Məhsullar JS ilə yüklənəcək -->
+      <p class="empty-note">Hələ məhsul yoxdur. "Yeni məhsul əlavə et" düyməsinə basın.</p>
+    </section>
+  </main>
 
-    <a class="btn" href="add-product.html">Yeni Telefon Əlavə Et</a>
-    <br><br>
-    <a class="btn" href="edit-product.html">Telefonları Redaktə Et</a>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Aliyev Phone Store — Bütün hüquqlar qorunur</p>
+    </div>
+  </footer>
 
-</div>
-
+  <script src="Script.js"></script>
+  <script>
+    // sadə footer ili üçün
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
