@@ -1,83 +1,98 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <title>Məhsul əlavə et | Aliyev Phone Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            padding: 20px;
-        }
-        .container {
-            max-width: 450px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border: 1px solid #aaa;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: black;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 18px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Məhsul əlavə et | Aliyev Phone Store</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: white;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 450px;
+      background: #111;
+      padding: 20px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #1e90ff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Yeni Məhsul Əlavə Et</h2>
+  <div class="container">
+    <h2 id="title">Məhsul əlavə et</h2>
 
-    <label>Məhsulun adı:</label>
-    <input type="text" id="name">
+    <input id="name" type="text" placeholder="Məhsul adı">
+    <input id="price" type="number" placeholder="Qiymət (AZN)">
+    <input id="image" type="text" placeholder="Şəkil linki (URL)">
 
-    <label>Qiymət:</label>
-    <input type="number" id="price">
+    <button onclick="saveProduct()" id="btn">Əlavə et</button>
+  </div>
 
-    <label>Şəkil linki:</label>
-    <input type="text" id="image">
+  <script>
+    let editIndex = localStorage.getItem("editIndex");
 
-    <label>Haqqında (qısa):</label>
-    <textarea id="desc"></textarea>
+    if (editIndex !== null) {
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+      let p = products[editIndex];
 
-    <button onclick="saveProduct()">Yadda Saxla</button>
+      document.getElementById("name").value = p.name;
+      document.getElementById("price").value = p.price;
+      document.getElementById("image").value = p.image;
 
-    <p id="status"></p>
-</div>
-
-<script>
-function saveProduct() {
-    const name = document.getElementById("name").value;
-    const price = document.getElementById("price").value;
-    const image = document.getElementById("image").value;
-    const desc = document.getElementById("desc").value;
-
-    if (!name || !price || !image) {
-        document.getElementById("status").innerHTML = "❌ Bütün məlumatları doldur!";
-        return;
+      document.getElementById("title").innerText = "Məhsulu redaktə et";
+      document.getElementById("btn").innerText = "Yadda saxla";
     }
 
-    const product = { name, price, image, desc };
+    function saveProduct() {
+      let name = document.getElementById("name").value;
+      let price = document.getElementById("price").value;
+      let image = document.getElementById("image").value;
 
-    let products = JSON.parse(localStorage.getItem("products") || "[]");
-    products.push(product);
-    localStorage.setItem("products", JSON.stringify(products));
+      if (!name || !price || !image) {
+        alert("Zəhmət olmasa bütün xanaları doldurun!");
+        return;
+      }
 
-    document.getElementById("status").innerHTML = "✅ Məhsul əlavə olundu!";
-}
-</script>
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+
+      if (editIndex !== null) {
+        products[editIndex] = { name, price, image };
+        localStorage.removeItem("editIndex");
+      } else {
+        products.push({ name, price, image });
+      }
+
+      localStorage.setItem("products", JSON.stringify(products));
+
+      window.location.href = "index.html";
+    }
+  </script>
 
 </body>
 </html>
